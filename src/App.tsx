@@ -5,7 +5,10 @@ import { Input } from "./components";
 function App() {
   return (
     <>
-      <div id="container">
+      <div
+        id="container"
+        className="m-auto w-[35rem] h-[40rem] py-10 flex flex-col items-center rounded-xl"
+      >
         <Input />
       </div>
     </>

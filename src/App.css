@@ -1,3 +1,19 @@
 html {
   font-size: 62.5%;
 }
+
+body {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#container {
+  background: linear-gradient(
+    133deg,
+    rgba(0, 255, 153, 1) 0%,
+    rgba(179, 130, 238, 1) 100%
+  );
+}
