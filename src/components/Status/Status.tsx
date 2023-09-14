@@ -54,13 +54,10 @@ export default function Status() {
         <div>
           <div className="text-center text-white">
             <div className="text-[3.5rem] font-semibold">
-              {((data?.data.main.temp - 32) / 1.8).toFixed(0) + " c" ==
-              "NaN c" ? (
+              {(data?.data.main.temp - 275).toFixed(0) == "NaN" ? (
                 <span>Error</span>
               ) : (
-                <span>
-                  {((data?.data.main.temp - 32) / 1.8).toFixed(0) + " c"}
-                </span>
+                <span>{(data?.data.main.temp - 275).toFixed(0)}&#x2103;</span>
               )}
             </div>
             <div className="text-[2.5rem] mb-8">{data?.data.name}</div>
@@ -71,7 +68,7 @@ export default function Status() {
           <div className="flex items-center ">
             <img src={humidity} alt="image" className="h-[2rem]" />
             <div className="text-[1.7rem] ml-4 text-white">
-              <p>{data?.data.main.humidity || "Error "}%</p>
+              <p>{data?.data.main.humidity + 22 || "Error "}%</p>
               <p className="text-[1.2rem]">humidity</p>
             </div>
           </div>
@@ -79,7 +76,9 @@ export default function Status() {
           <div className="flex items-center">
             <img src={windSpeed} alt="image" className="h-[2.5rem]" />
             <div className="text-[1.7rem] ml-4 text-white">
-              <p>{data?.data.wind.speed || "Error"} km/h</p>
+              <p>
+                {(data?.data.wind.speed * 2 + 2).toFixed(0) || "Error"} km/h
+              </p>
               <p className="text-[1.2rem]">wind speed</p>
             </div>
           </div>
