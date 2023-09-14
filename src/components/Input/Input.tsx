@@ -2,7 +2,7 @@ import "./input.css";
 export default function Input() {
   return (
     <>
-      <div className="w-[88%] flex justify-between ">
+      <div className="w-[88%] flex justify-between mb-3">
         <input
           type="text"
           value="dubai"
