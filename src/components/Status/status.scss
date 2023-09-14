@@ -1,4 +1,7 @@
 @media screen and (max-width: 486px) {
+  body {
+    align-items: flex-start;
+  }
   #container {
     width: 80vw;
     height: auto;

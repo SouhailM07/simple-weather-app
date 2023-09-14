@@ -21,7 +21,7 @@ export default function Input() {
           onClick={() => {
             dispatch(addingLocation(inputLocation));
           }}
-          className="bg-white h-[4rem] w-[4rem] rounded-full grid place-items-center"
+          className="bg-white h-[4rem] w-[4rem] rounded-full grid place-items-center ml-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
