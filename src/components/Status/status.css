@@ -1,0 +1,14 @@
+@media screen and (max-width: 486px) {
+  #container {
+    width: 80vw;
+    height: auto;
+  }
+  #mini-status {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+  }
+  #mini-status div:nth-of-type(1) {
+    margin-bottom: 20px;
+  }
+}

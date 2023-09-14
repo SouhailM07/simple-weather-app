@@ -9,7 +9,7 @@ let statusSlice = createSlice({
   initialState,
   reducers: {
     addingLocation: (state: any, action) => {
-      state = action.payload;
+      state.location = action.payload;
     },
   },
 });

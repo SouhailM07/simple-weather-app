@@ -1,43 +1,77 @@
 import "./status.css";
+//
+import { useSelector } from "react-redux";
 // assets
 import clear from "../../assets/clear.png";
+import clouds from "../../assets/clouds.png";
+import drizzle from "../../assets/drizzle.png";
+import mist from "../../assets/mist.png";
+import rain from "../../assets/rain.png";
+import snow from "../../assets/snow.png";
+import wind from "../../assets/wind.png";
 import humidity from "../../assets/humidity.png";
 import windSpeed from "../../assets/wind.png";
-// api
+// ! api
 import useSwr from "swr";
-import { useState } from "react";
 import axios from "axios";
+
 export default function Status() {
+  // ! api stuff
+  let location = useSelector((state: any) => state.location.location);
   let key = "7ff71e54f6cabfd1b7c240c99b2203bd";
-  // !swr
+  // *swr
   // @ts-ignore
   let fetcher = (...args) => axios.get(...args);
   let { data, isValidating } = useSwr(
-    `https://api.openweathermap.org/data/2.5/weather?q=new york&appid=${key}`,
+    `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${key}`,
     fetcher
   );
-  console.log(data?.data.name);
+
+  // ! weather photos
+
+  let weatherPng = {
+    clear: clear,
+    clouds: clouds,
+    drizzle: drizzle,
+    rain: rain,
+    wind: wind,
+    mist: mist,
+    snow: snow,
+  };
+
+  // ! img source
+
+  let img = "";
+  if (data) img = weatherPng[(data?.data.weather[0].main).toLowerCase()];
+
   return (
     <>
-      <div className="border-2 border-red-500 flex flex-col items-center w-[80%]">
-        <div className="border-2 border-black">
-          <img src={clear} alt="img" className="h-[15rem] " />
+      <div className="flex flex-col items-center w-[80%]">
+        <div>
+          <img src={img} alt="img" className="h-[15rem] " />
         </div>
         {/*  */}
         <div>
           <div className="text-center text-white">
-            <div className="text-[3rem] font-medium">
-              {((data?.data.main.temp - 32) / 1.8).toFixed(0)}c
+            <div className="text-[3.5rem] font-semibold">
+              {((data?.data.main.temp - 32) / 1.8).toFixed(0) + " c" ==
+              "NaN c" ? (
+                <span>Error</span>
+              ) : (
+                <span>
+                  {((data?.data.main.temp - 32) / 1.8).toFixed(0) + " c"}
+                </span>
+              )}
             </div>
-            <div className="text-[2.5rem] mb-10">{data?.data.name}</div>
+            <div className="text-[2.5rem] mb-8">{data?.data.name}</div>
           </div>
         </div>
-        {/*  */}
-        <div className="flex border-2 border-red-500 w-full  justify-between">
+        {/* */}
+        <div id="mini-status" className="flex w-full  justify-between">
           <div className="flex items-center ">
             <img src={humidity} alt="image" className="h-[2rem]" />
             <div className="text-[1.7rem] ml-4 text-white">
-              <p>{data?.data.main.humidity}%</p>
+              <p>{data?.data.main.humidity || "Error "}%</p>
               <p className="text-[1.2rem]">humidity</p>
             </div>
           </div>
@@ -45,7 +79,7 @@ export default function Status() {
           <div className="flex items-center">
             <img src={windSpeed} alt="image" className="h-[2.5rem]" />
             <div className="text-[1.7rem] ml-4 text-white">
-              <p>{data?.data.wind.speed} km/h</p>
+              <p>{data?.data.wind.speed || "Error"} km/h</p>
               <p className="text-[1.2rem]">wind speed</p>
             </div>
           </div>
