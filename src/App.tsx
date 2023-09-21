@@ -7,7 +7,7 @@ function App() {
     <>
       <div
         id="container"
-        className="m-auto w-[35rem] h-[41rem] py-10 flex flex-col items-center rounded-xl"
+        className="m-auto w-[32rem] h-[41rem] py-10 flex flex-col items-center rounded-xl"
       >
         <Input />
         <Status />

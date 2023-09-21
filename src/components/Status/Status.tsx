@@ -22,11 +22,10 @@ export default function Status() {
   // *swr
   // @ts-ignore
   let fetcher = (...args) => axios.get(...args);
-  let { data, isValidating } = useSwr(
+  let { data, isLoading } = useSwr(
     `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${key}`,
     fetcher
   );
-
   // ! weather photos
 
   let weatherPng = {
@@ -39,8 +38,13 @@ export default function Status() {
     snow: snow,
   };
 
+  // if ("geolocation" in navigator) {
+  //   navigator.geolocation.getCurrentPosition(function (position) {
+  //     // Handle the user's location data here
+  //     console.log(position);
+  //   });
+  // }
   // ! img source
-
   let img = "";
   if (data) img = weatherPng[(data?.data.weather[0].main).toLowerCase()];
 
@@ -57,10 +61,17 @@ export default function Status() {
               {(data?.data.main.temp - 275).toFixed(0) == "NaN" ? (
                 <span>Error</span>
               ) : (
-                <span>{(data?.data.main.temp - 275).toFixed(0)}&#x2103;</span>
+                <span>
+                  {isLoading
+                    ? "Loading"
+                    : (data?.data.main.temp - 275).toFixed(0)}
+                  &#x2103;
+                </span>
               )}
             </div>
-            <div className="text-[2.5rem] mb-8">{data?.data.name}</div>
+            <div className="text-[2.5rem] mb-8">
+              {isLoading ? "Loading" : data?.data.name}
+            </div>
           </div>
         </div>
         {/* */}
@@ -68,7 +79,12 @@ export default function Status() {
           <div className="flex items-center ">
             <img src={humidity} alt="image" className="h-[2rem]" />
             <div className="text-[1.7rem] ml-4 text-white">
-              <p>{data?.data.main.humidity + 22 || "Error "}%</p>
+              <p>
+                {isLoading
+                  ? "Loading"
+                  : data?.data.main.humidity + 22 || "Error "}
+                %
+              </p>
               <p className="text-[1.2rem]">humidity</p>
             </div>
           </div>
@@ -77,7 +93,10 @@ export default function Status() {
             <img src={windSpeed} alt="image" className="h-[2.5rem]" />
             <div className="text-[1.7rem] ml-4 text-white">
               <p>
-                {(data?.data.wind.speed * 2 + 2).toFixed(0) || "Error"} km/h
+                {isLoading
+                  ? "Loading"
+                  : (data?.data.wind.speed * 2 + 2).toFixed(0) || "Error"}
+                km/h
               </p>
               <p className="text-[1.2rem]">wind speed</p>
             </div>

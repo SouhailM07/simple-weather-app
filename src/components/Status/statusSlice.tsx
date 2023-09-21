@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let initialState = {
+interface statusProps {
+  location: string;
+}
+
+let initialState: statusProps = {
   location: "",
 };
 
